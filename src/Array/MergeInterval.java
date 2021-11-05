@@ -5,7 +5,9 @@ import java.util.LinkedList;
 public class MergeInterval {
 
 	public static void main(String[] args) {
-		
+		/**
+		 * test push
+		 */
 		int[][] input = new int[][] {{1,3},{2,6},{8,10},{15,18}};
 		int[][] merged = merge(input);
 		for (int[] is : merged) {
