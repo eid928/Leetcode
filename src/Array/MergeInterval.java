@@ -1,10 +1,18 @@
 package Array;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class MergeInterval {
 
 	public static void main(String[] args) {
+		
+		
+		int[] nums = {5,7,3,6,1,8,3,4,19};
+		Arrays.sort(nums);
+		Arrays.sort(null, null);
+		Arrays.sort(args);
+		Collections.sort(null);
 		/**
 		 * test push
 		 */
