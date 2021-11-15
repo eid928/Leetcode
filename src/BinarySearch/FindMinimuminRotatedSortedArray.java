@@ -8,8 +8,38 @@ public class FindMinimuminRotatedSortedArray {
 		System.out.println(findMin(nums1));
 		System.out.println(findMin(nums2));
 	}
-
+	
 	public static int findMin(int[] nums) {
+        
+        if (nums.length == 1) return nums[0];
+		
+		int left = 0;
+		int right = nums.length-1;
+		
+		while (left <= right) {
+			
+			int mid = (left+right)/2;
+			if (isMin(nums, mid)) {
+				return nums[mid];
+			}
+			if (isMin(nums, left)) {
+				return nums[left];
+			}
+			if (isMin(nums, right)) {
+				return nums[right];
+			}
+			
+			if (nums[mid] > nums[right]) {
+				left = mid+1;
+			} else {
+				right = mid-1;
+			}
+		}
+		
+		return 0;
+	}
+
+	public static int findMin2(int[] nums) {
 		
 		if (nums.length == 1) {
 			return nums[0];

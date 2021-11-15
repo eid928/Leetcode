@@ -42,24 +42,24 @@ public class MergeSortArray {
 		
 		while (left <= mid || right <= end) {
 			
-			if (left > mid) {
+			if (left > mid) { /* 左邊用完了 */
 				temp[index] = nums[right];
 				right ++;
 				index ++;
 				continue;
 			}
 			
-			if (right > end) {
+			if (right > end) { /* 右邊用完了 */
 				temp[index] = nums[left];
 				left ++;
 				index ++;
 				continue;
 			}
 			
-			if (nums[left] < nums[right]) {
+			if (nums[left] < nums[right]) { /* 右>左 */
 				temp[index] = nums[left];
 				left ++;
-			} else {
+			} else { /* 右<左 */
 				temp[index] = nums[right];
 				right ++;
 			}
