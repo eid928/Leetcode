@@ -1,5 +1,7 @@
 package DynamicProgramming;
 
+import java.util.Arrays;
+
 public class HouseRobber {
 
 	public static void main(String[] args) {
@@ -19,8 +21,42 @@ public class HouseRobber {
 		System.out.println(rob2(nums1));
 		System.out.println(rob2(nums2));
 		System.out.println(rob2(nums3));
+		System.out.println(rob3(nums1));
+		System.out.println(rob3(nums2));
+		System.out.println(rob3(nums3));
 	}
-    public static int simpleRob(int[] nums) {
+	
+	public static int rob3(int[] nums) {
+		/**
+		 * dfs + memo
+		 * 每到一間房子就只有兩種選擇
+		 * 樹狀圖就是每個節點底下兩個分支
+		 */
+		int[] dp = new int[nums.length];
+		Arrays.fill(dp, -1);
+		return dfs(nums, 0, dp);
+	}
+	
+    private static int dfs(int[] nums, int index, int[] dp) {
+    	
+    	if (index >= nums.length) {
+			return 0;
+		}
+    	
+    	if (dp[index] != -1) {
+			return dp[index];
+		}
+		
+    	int money = nums[index];
+    	
+    	int resultToRob = money + dfs(nums, index+2, dp);
+    	int resultNotToRob = dfs(nums, index+1, dp);
+    	
+    	dp[index] = Math.max(resultToRob, resultNotToRob);
+		return Math.max(resultToRob, resultNotToRob);
+	}
+
+	public static int simpleRob(int[] nums) {
     	/**
     	 * simple dp:
     	 * dp存的是nums那一格為最後一間可rob的最大錢
