@@ -18,7 +18,7 @@ public class TargetSum {
     	/**
     	 * dfs + memo
     	 * 要紀錄兩個參數，index和target，
-    	 * Map<String, Integer> key紀錄target, index 最慢
+    	 * Map<String, Integer> key紀錄target, index 最慢  5%
     	 * Map<Integer, int[]> 次之 (int[]要事先填充-1進去當做未訪問)
     	 * Map<Integer, Map<Integer, Integer>> 最快
     	 */
