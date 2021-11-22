@@ -1,8 +1,12 @@
 package Tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import datastructure.TreeNode;
@@ -33,10 +37,65 @@ public class AllNodesDistanceKinBinaryTree {
 		System.out.println(distanceK(root, target, 2));
 	}
 	
+	public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+		/**
+		 * 直觀的做法
+		 * 先將binary tree轉成雙向graph
+		 * 之後做bfs
+		 */
+		Map<Integer, List<Integer>> graph = new HashMap<>();
+		convertTreeToGraph(root, graph);
+		System.out.println(graph);
+		
+		Queue<Integer> queue = new LinkedList<Integer>();
+		Set<Integer> visited = new HashSet<Integer>();
+		
+		queue.add(target.val);
+		
+		while (!queue.isEmpty() && k > 0) {
+			
+			int nodeNumOfSameDis = queue.size();
+			for (int i = 0; i < nodeNumOfSameDis; i++) {
+				Integer curNode = queue.poll();
+				visited.add(curNode);
+				for (int neighbor : graph.get(curNode)) {
+					if (!visited.contains(neighbor)) queue.add(neighbor);
+				}
+			}
+			k--;
+		}
+		
+		return new ArrayList<Integer>(queue);
+	}
+	
+	private static void convertTreeToGraph(TreeNode node, Map<Integer, List<Integer>> graph) {
+		
+		if (node == null) {
+			return;
+		}
+		
+		List<Integer> nodeToChild = graph.getOrDefault(node.val, new ArrayList<Integer>());
+		if (node.left != null) {
+			nodeToChild.add(node.left.val);
+			List<Integer> leftToNode = graph.getOrDefault(node.left.val, new ArrayList<Integer>());
+			leftToNode.add(node.val);
+			graph.put(node.left.val, leftToNode);
+		}
+		if (node.right != null) {
+			nodeToChild.add(node.right.val);
+			List<Integer> rightToNode = graph.getOrDefault(node.right.val, new ArrayList<Integer>());
+			rightToNode.add(node.val);
+			graph.put(node.right.val, rightToNode);
+		}
+		graph.put(node.val, nodeToChild);
+		convertTreeToGraph(node.left, graph);
+		convertTreeToGraph(node.right, graph);
+	}
+
 	private static List<TreeNode> pathToTarget;
 	private static Set<TreeNode> pathSet;
 
-    public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+    public static List<Integer> distanceK2(TreeNode root, TreeNode target, int k) {
         /**
          * 先遍歷求出root到target的path，分別存成list以及set
          * 接著從target開始，往下看距離為k的子節點
