@@ -28,11 +28,11 @@ public class GenerateParentheses {
 			return;
 		}
 		
-		if (openCount < n) { /* 先加左括號 */
+		if (openCount < n) { /* 加左括號 */
 			
 			dfs(ans, currString + "(", openCount+1, closeCount, n);
 		}
-		if (closeCount < openCount) {
+		if (closeCount < openCount) { /* 當右括號少於左括號時，才有加右括號這條路 */
 			
 			dfs(ans, currString + ")", openCount, closeCount+1, n);
 		}

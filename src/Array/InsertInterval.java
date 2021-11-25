@@ -92,7 +92,5 @@ public class InsertInterval {
 		
 		
 		return answerList.toArray(new int[answerList.size()][2]);
-        
     }
-	
 }
